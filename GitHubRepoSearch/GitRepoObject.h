@@ -1,5 +1,5 @@
 //
-//  GitRepo.h
+//  GitRepoObject.h
 //  GitHubRepoSearch
 //
 //  Created by Irfan Lone on 3/10/16.
@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GitRepo : NSObject
+@interface GitRepoObject : NSObject
 
+@property (nonatomic, strong) NSNumber * identifier;
 @property (nonatomic, strong) NSString * title;
 @property (nonatomic, strong) NSString * repositoryDescription;
 @property (nonatomic, strong) NSString * respositoryLanguage;
