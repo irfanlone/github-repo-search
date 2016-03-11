@@ -13,6 +13,9 @@
 		970952CC1C920A4F00FFDADD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 970952CA1C920A4F00FFDADD /* Main.storyboard */; };
 		970952CE1C920A4F00FFDADD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 970952CD1C920A4F00FFDADD /* Assets.xcassets */; };
 		970952D11C920A4F00FFDADD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 970952CF1C920A4F00FFDADD /* LaunchScreen.storyboard */; };
+		971B59E81C92754A00BDBF49 /* GitRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = 971B59E71C92754A00BDBF49 /* GitRepo.m */; };
+		971B59EB1C92783000BDBF49 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 971B59EA1C92783000BDBF49 /* WebViewController.m */; };
+		971B59EE1C927C0D00BDBF49 /* GitRepoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 971B59ED1C927C0D00BDBF49 /* GitRepoCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,12 @@
 		970952CD1C920A4F00FFDADD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		970952D01C920A4F00FFDADD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		970952D21C920A4F00FFDADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		971B59E61C92754A00BDBF49 /* GitRepo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitRepo.h; sourceTree = "<group>"; };
+		971B59E71C92754A00BDBF49 /* GitRepo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GitRepo.m; sourceTree = "<group>"; };
+		971B59E91C92783000BDBF49 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		971B59EA1C92783000BDBF49 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		971B59EC1C927C0D00BDBF49 /* GitRepoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitRepoCell.h; sourceTree = "<group>"; };
+		971B59ED1C927C0D00BDBF49 /* GitRepoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GitRepoCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +76,12 @@
 				970952CF1C920A4F00FFDADD /* LaunchScreen.storyboard */,
 				970952D21C920A4F00FFDADD /* Info.plist */,
 				970952C11C920A4F00FFDADD /* Supporting Files */,
+				971B59E61C92754A00BDBF49 /* GitRepo.h */,
+				971B59E71C92754A00BDBF49 /* GitRepo.m */,
+				971B59E91C92783000BDBF49 /* WebViewController.h */,
+				971B59EA1C92783000BDBF49 /* WebViewController.m */,
+				971B59EC1C927C0D00BDBF49 /* GitRepoCell.h */,
+				971B59ED1C927C0D00BDBF49 /* GitRepoCell.m */,
 			);
 			path = GitHubRepoSearch;
 			sourceTree = "<group>";
@@ -150,7 +165,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				970952C91C920A4F00FFDADD /* ViewController.m in Sources */,
+				971B59EB1C92783000BDBF49 /* WebViewController.m in Sources */,
+				971B59EE1C927C0D00BDBF49 /* GitRepoCell.m in Sources */,
 				970952C61C920A4F00FFDADD /* AppDelegate.m in Sources */,
+				971B59E81C92754A00BDBF49 /* GitRepo.m in Sources */,
 				970952C31C920A4F00FFDADD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +318,7 @@
 				970952D71C920A4F00FFDADD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
