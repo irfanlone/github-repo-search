@@ -19,7 +19,6 @@ NSString *const kAccessTokenPrefKey = @"access_token";
 @property (nonatomic, strong) NSMutableArray<GitRepoObject*> * results;
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) IBOutlet UITextField *searchTextfield;
 
 @end
 
@@ -101,7 +100,7 @@ NSString *const kAccessTokenPrefKey = @"access_token";
 }
 
 - (IBAction)searchPressed:(id)sender {
-    [self.searchTextfield resignFirstResponder];
+    [self.searchTextField resignFirstResponder];
     if (self.searchTextField.text.length == 0) {
         [self alertUserWithMessage:@"Enter a value for search"];
         return;

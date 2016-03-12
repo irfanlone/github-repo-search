@@ -211,7 +211,6 @@
                     <tabBarItem key="tabBarItem" systemItem="search" id="sCR-bg-Z9G"/>
                     <connections>
                         <outlet property="searchTextField" destination="bCO-cu-aV5" id="K8x-Tr-kJ8"/>
-                        <outlet property="searchTextfield" destination="bCO-cu-aV5" id="KwI-mj-ap2"/>
                         <outlet property="tableView" destination="PO1-dz-Vp4" id="VIU-PC-fpR"/>
                     </connections>
                 </viewController>
