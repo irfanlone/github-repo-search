@@ -8,11 +8,24 @@
 
 #import "WebViewController.h"
 #import "Defines.h"
-#import "ViewController.h"
+#import "SearchViewController.h"
+#import "SVProgressHud.h"
+#import "KeychainManager.h"
+#import "Transport.h"
+
+typedef enum {
+    NetworkErrorBadUrl = -1000,
+    NetworkErrorRequestTimedOut = -1001,
+    NetworkErrorCannotFindHost = -10003,
+    NetworkErrorCannotConnectToHost = -1004,
+    NetworkErrorNetworkConnectionLost = -1005,
+    NetworkErrorNSLookupFailed = -1006
+}NetworkError;
 
 @interface WebViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
+@property (strong, nonatomic) NSTimer * webviewTimeoutTimer;
 
 @end
 
@@ -21,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSURL *url = [NSURL URLWithString:self.url];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [self.webView loadRequest:urlRequest];
     [self.webView goBack];
     [self.backButton setEnabled:[self.webView canGoBack]];
@@ -34,14 +47,17 @@
     }
 }
 
+- (void)dealloc {
+    [self.webviewTimeoutTimer invalidate];
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *responseURL = [request.URL absoluteString];
     NSString *codeString = [NSString stringWithFormat:@"%@?code=", GITHUB_CALLBACK_URL];
     NSLog(@"responseURL = %@",responseURL);
     if([responseURL hasPrefix:codeString])
     {
-        NSString * access_token = [[NSUserDefaults standardUserDefaults] stringForKey:kAccessTokenPrefKey];
-        if (access_token) {
+        if ([KeychainManager valueForKey:kAccessTokenKey]) {
             return YES;
         }
         NSInteger strLen = [codeString length];
@@ -51,38 +67,53 @@
         NSString * baseUrl = @"https://github.com/login/oauth/access_token?";
         NSString * urlString = [NSString stringWithFormat:@"%@code=%@&client_id=%@&client_secret=%@&redirect_uri=%@",baseUrl,code,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET,GITHUB_CALLBACK_URL];
         NSURL * url = [NSURL URLWithString:urlString];
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
         
-        NSURLSessionConfiguration * config = [NSURLSessionConfiguration defaultSessionConfiguration];
-        NSURLSession * session = [NSURLSession sessionWithConfiguration:config];
-        NSURLSessionDataTask * datatask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            if(!error) {
-                NSString * responseString = [NSString stringWithUTF8String:[data bytes]];
+        Transport * transport = [[Transport alloc] init];
+        [transport getDataAtUrl:url completionBlock:^(BOOL success, TransportResponseObject *responseObject) {
+            if(success) {
+                NSString * responseString = [NSString stringWithUTF8String:[responseObject.data bytes]];
                 NSDictionary * pairs = [self convertStringToDictionary:responseString];
                 NSString * access_token = [pairs valueForKey:@"access_token"];
-                [[NSUserDefaults standardUserDefaults] setValue:access_token forKey:kAccessTokenPrefKey];
-                [[NSUserDefaults standardUserDefaults] synchronize];
+                [KeychainManager saveAccessTokenToKeyChain:access_token forKey:kAccessTokenKey];
                 
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    [self alertUserWithMessage:@"sign in successful"];
+                    __weak typeof(self) wealself = self;
+                    [self alertUserWithMessage:@"sign in successful" andActionBlock:^{
+                        [wealself dismissViewControllerAnimated:YES completion:nil];
+                    }];
                 });
-            } else {
-                NSLog(@"Error : %@",error);
             }
-        }];
-        [datatask resume];
+        }];        
     }
     return YES;
 }
 
--(void)webViewDidFinishLoad:(UIWebView *)webView {
-    [self.backButton setEnabled:[self.webView canGoBack]];
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeBlack];
+    [self.webviewTimeoutTimer invalidate];
+    self.webviewTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(cancelWebviewLoading) userInfo:nil repeats:NO];
 }
 
-- (void)alertUserWithMessage:(NSString*)alertMessage {
+-(void)webViewDidFinishLoad:(UIWebView *)webView {
+    [SVProgressHUD dismiss];
+    [self.backButton setEnabled:[self.webView canGoBack]];
+    [self.webviewTimeoutTimer invalidate];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error {
+    [SVProgressHUD dismiss];
+    if (error.code == NetworkErrorRequestTimedOut) {
+        [self alertUserWithMessage:@"Taking too long to load" andActionBlock:nil];
+    }
+    [self.webviewTimeoutTimer invalidate];
+}
+
+- (void)alertUserWithMessage:(NSString*)alertMessage andActionBlock:(void(^)())completion{
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertMessage message:@"" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        if (completion) {
+            completion();
+        }
     }];
     [alertController addAction:ok];
     [self presentViewController:alertController animated:YES completion:nil];
@@ -101,6 +132,11 @@
 
 - (IBAction)closePressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)cancelWebviewLoading {
+    [SVProgressHUD dismiss];
+    [self alertUserWithMessage:@"Taking too long to load" andActionBlock:nil];
 }
 
 - (void)didReceiveMemoryWarning {

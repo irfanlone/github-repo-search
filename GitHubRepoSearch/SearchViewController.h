@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-FOUNDATION_EXPORT NSString *const kAccessTokenPrefKey;
+FOUNDATION_EXPORT NSString *const kAccessTokenKey;
 
-@interface ViewController : UIViewController
+@interface SearchViewController : UIViewController
 
 
 @end

@@ -8,11 +8,10 @@
 
 #import "LoginViewController.h"
 #import "WebViewController.h"
-#import "ViewController.h"
+#import "SearchViewController.h"
 #import "Defines.h"
 
 @interface LoginViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *signInStatusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *signInButton;
 @end
 
@@ -24,22 +23,19 @@
     [[self.signInButton layer] setBorderColor:[UIColor darkGrayColor].CGColor];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    NSString * access_token = [[NSUserDefaults standardUserDefaults] stringForKey:kAccessTokenPrefKey];
-    if (access_token) {
-        self.signInStatusLabel.text = @"you are already signed in.";
-    } else {
-        self.signInStatusLabel.text = @"You are not signed in.";
-    }
-}
-
 - (IBAction)signIn:(id)sender {
-    NSString * baseUrl = @"https://github.com/login/oauth/authorize?";
-    NSString * urlString = [NSString stringWithFormat:@"%@client_id=%@&redirect_uri=%@&scope=user",baseUrl,GITHUB_CLIENT_ID,GITHUB_CALLBACK_URL];
-    WebViewController *webVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"webView"];
-    webVC.url = urlString;
-    [self presentViewController:webVC animated:YES completion:nil];
+    if ([GITHUB_CLIENT_ID isEqualToString:@"Your github client_id"]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Invalid Client ID" message:@"Please define your Client_Id and and Client_Secrect in Defines.h" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:ok];
+        [self presentViewController:alertController animated:YES completion:nil];
+    } else {
+        NSString * baseUrl = @"https://github.com/login/oauth/authorize?";
+        NSString * urlString = [NSString stringWithFormat:@"%@client_id=%@&redirect_uri=%@&scope=user",baseUrl,GITHUB_CLIENT_ID,GITHUB_CALLBACK_URL];
+        WebViewController *webVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"webView"];
+        webVC.url = urlString;
+        [self presentViewController:webVC animated:YES completion:nil];
+    }
 }
 
 @end

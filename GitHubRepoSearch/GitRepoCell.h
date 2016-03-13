@@ -15,6 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *language;
 @property (weak, nonatomic) IBOutlet UILabel *ownerName;
 @property (weak, nonatomic) IBOutlet UILabel *lastUpdatedTimeStamp;
-@property (strong, nonatomic) NSNumber * identifier;
 
 @end

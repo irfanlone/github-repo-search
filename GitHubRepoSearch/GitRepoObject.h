@@ -10,13 +10,16 @@
 
 @interface GitRepoObject : NSObject
 
-@property (nonatomic, strong) NSNumber * identifier;
-@property (nonatomic, strong) NSString * title;
-@property (nonatomic, strong) NSString * repositoryDescription;
-@property (nonatomic, strong) NSString * respositoryLanguage;
-@property (nonatomic, strong) NSString * ownerName;
-@property (nonatomic, strong) NSString * ownerAvatar;
-@property (nonatomic, strong) NSString * lastUpdateTimeStamp;
-@property (nonatomic, strong) NSString * url;
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithTitle:(NSString *)title description:(NSString *)description language:(NSString *)language ownerName:(NSString *)name ownerAvatar:(NSString *)avatar lastUpdateTimeStamp:(NSString *)timeStamp url:(NSString *)url NS_DESIGNATED_INITIALIZER;
+
+@property (nonatomic, readonly) NSString * title;
+@property (nonatomic, readonly) NSString * repositoryDescription;
+@property (nonatomic, readonly) NSString * respositoryLanguage;
+@property (nonatomic, readonly) NSString * ownerName;
+@property (nonatomic, readonly) NSString * ownerAvatar;
+@property (nonatomic, readonly) NSString * lastUpdateTimeStamp;
+@property (nonatomic, readonly) NSString * url;
 
 @end
