@@ -85,7 +85,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdB-Gk-95d">
-                                <rect key="frame" x="500" y="20" width="80" height="30"/>
+                                <rect key="frame" x="500" y="25" width="80" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="3eX-Kq-XVM"/>
                                     <constraint firstAttribute="height" constant="30" id="qm3-fa-TNE"/>
@@ -96,7 +96,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PO1-dz-Vp4">
-                                <rect key="frame" x="0.0" y="55" width="600" height="496"/>
+                                <rect key="frame" x="0.0" y="63" width="600" height="488"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="140" id="tcE-x7-tSa" customClass="GitRepoCell">
@@ -187,7 +187,7 @@
                                 </connections>
                             </tableView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="search github repositories" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bCO-cu-aV5">
-                                <rect key="frame" x="8" y="20" width="484" height="30"/>
+                                <rect key="frame" x="8" y="25" width="484" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
@@ -197,10 +197,10 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="MdB-Gk-95d" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="7jN-K5-ZPJ"/>
+                            <constraint firstItem="MdB-Gk-95d" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="5" id="7jN-K5-ZPJ"/>
                             <constraint firstItem="PO1-dz-Vp4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Tsl-9P-Csy"/>
                             <constraint firstAttribute="trailing" secondItem="MdB-Gk-95d" secondAttribute="trailing" constant="20" id="VAu-nn-40S"/>
-                            <constraint firstItem="PO1-dz-Vp4" firstAttribute="top" secondItem="MdB-Gk-95d" secondAttribute="bottom" constant="5" id="W45-MA-llB"/>
+                            <constraint firstItem="PO1-dz-Vp4" firstAttribute="top" secondItem="MdB-Gk-95d" secondAttribute="bottom" constant="8" id="W45-MA-llB"/>
                             <constraint firstAttribute="trailing" secondItem="PO1-dz-Vp4" secondAttribute="trailing" id="bxP-EB-a8A"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PO1-dz-Vp4" secondAttribute="bottom" id="kQ4-f5-B5i"/>
                             <constraint firstItem="MdB-Gk-95d" firstAttribute="centerY" secondItem="bCO-cu-aV5" secondAttribute="centerY" id="mHR-MY-NkS"/>
@@ -231,35 +231,51 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aa0-PQ-SOw">
-                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="540"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="Qv1-F8-urR" id="duT-Ii-TqL"/>
                                 </connections>
                             </webView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVB-t9-fuJ">
-                                <rect key="frame" x="512" y="0.0" width="88" height="44"/>
+                                <rect key="frame" x="530" y="565" width="70" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="88" id="LpM-AM-E9w"/>
-                                    <constraint firstAttribute="height" constant="44" id="hCv-UG-fOb"/>
+                                    <constraint firstAttribute="height" constant="35" id="IPc-WZ-Ca1"/>
+                                    <constraint firstAttribute="width" constant="70" id="TSf-OI-Wbc"/>
                                 </constraints>
                                 <state key="normal" title="Close"/>
                                 <connections>
                                     <action selector="closePressed:" destination="Qv1-F8-urR" eventType="touchUpInside" id="W7V-Rf-aa4"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eau-Up-h21">
+                                <rect key="frame" x="0.0" y="565" width="60" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="SjX-UY-d1B"/>
+                                    <constraint firstAttribute="width" constant="60" id="sme-Dx-wOU"/>
+                                </constraints>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="goBack:" destination="Qv1-F8-urR" eventType="touchUpInside" id="kgp-Yl-W7k"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="DGH-u1-rHU" firstAttribute="top" secondItem="vVB-t9-fuJ" secondAttribute="bottom" id="0CD-M1-QYO"/>
+                            <constraint firstItem="DGH-u1-rHU" firstAttribute="top" secondItem="Eau-Up-h21" secondAttribute="bottom" id="Ukm-my-dZN"/>
+                            <constraint firstAttribute="trailing" secondItem="vVB-t9-fuJ" secondAttribute="trailing" id="bHW-Hk-CGj"/>
+                            <constraint firstItem="vVB-t9-fuJ" firstAttribute="top" secondItem="aa0-PQ-SOw" secondAttribute="bottom" constant="5" id="bio-uM-fGr"/>
                             <constraint firstAttribute="trailing" secondItem="aa0-PQ-SOw" secondAttribute="trailing" id="gi9-eX-NhL"/>
                             <constraint firstItem="aa0-PQ-SOw" firstAttribute="leading" secondItem="Vb6-8M-npT" secondAttribute="leading" id="k50-Ct-Kf8"/>
-                            <constraint firstItem="vVB-t9-fuJ" firstAttribute="top" secondItem="Vb6-8M-npT" secondAttribute="top" id="maA-08-tuY"/>
-                            <constraint firstItem="aa0-PQ-SOw" firstAttribute="top" secondItem="vVB-t9-fuJ" secondAttribute="bottom" id="wew-gp-9Ug"/>
-                            <constraint firstItem="DGH-u1-rHU" firstAttribute="top" secondItem="aa0-PQ-SOw" secondAttribute="bottom" id="x0o-pH-36J"/>
-                            <constraint firstAttribute="trailing" secondItem="vVB-t9-fuJ" secondAttribute="trailing" id="yRL-Rj-Pr1"/>
+                            <constraint firstItem="aa0-PQ-SOw" firstAttribute="top" secondItem="Sam-po-Pch" secondAttribute="bottom" id="qEn-CJ-ex3"/>
+                            <constraint firstItem="Eau-Up-h21" firstAttribute="leading" secondItem="Vb6-8M-npT" secondAttribute="leading" id="rLa-uS-KXD"/>
+                            <constraint firstItem="DGH-u1-rHU" firstAttribute="top" secondItem="aa0-PQ-SOw" secondAttribute="bottom" constant="40" id="x0o-pH-36J"/>
+                            <constraint firstItem="Eau-Up-h21" firstAttribute="top" secondItem="aa0-PQ-SOw" secondAttribute="bottom" constant="5" id="z6A-eu-dRa"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="Eau-Up-h21" id="0dl-4A-Qrw"/>
                         <outlet property="webView" destination="aa0-PQ-SOw" id="D2k-4h-MkP"/>
                     </connections>
                 </viewController>

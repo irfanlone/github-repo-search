@@ -12,6 +12,7 @@
 
 @interface WebViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) IBOutlet UIButton *backButton;
 
 @end
 
@@ -22,6 +23,15 @@
     NSURL *url = [NSURL URLWithString:self.url];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:urlRequest];
+    [self.webView goBack];
+    [self.backButton setEnabled:[self.webView canGoBack]];
+    self.webView.scalesPageToFit = YES;
+}
+
+- (IBAction)goBack:(id)sender {
+    if ([self.webView canGoBack]) {
+        [self.webView goBack];
+    }
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -63,6 +73,10 @@
         [datatask resume];
     }
     return YES;
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self.backButton setEnabled:[self.webView canGoBack]];
 }
 
 - (void)alertUserWithMessage:(NSString*)alertMessage {
